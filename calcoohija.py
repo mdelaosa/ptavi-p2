@@ -19,11 +19,11 @@ class Calculadora:
 class CalculadoraHija(Calculadora):
     
     def mult(self, op1, op2):
-        return op1 * op2
+        return op1*op2
     
     def div(self, op1, op2):
         try:
-            return op1 / op2
+            return op1/op2
         except ZeroDivisionError:
             return 'Division by zero is not allowed'
   

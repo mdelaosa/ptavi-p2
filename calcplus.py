@@ -39,6 +39,9 @@ if __name__ == '__main__':
         Multiplicacion = micalcplus.mult(op1, op2)
         Division = micalcplus.div(op1, op2)"""
         
+    except ValueError:
+        sys.exit('Error: Non numerical parameters')
+        
         for op in (1, n):
             suma = micalcplus.plus(resultadosu, sys.argv[op])
             resultadosu = suma
