@@ -32,8 +32,8 @@ if __name__ == '__main__':
                     op1 = micalc.plus(op1, op2)
 
             elif 'resta' in line:
-                op1 = numeros[0] * 2
-                for op2 in numeros:
+                op1 = numeros[0]
+                for op2 in numeros[1:]:
                     op1 = micalc.minus(op1, op2)
 
             elif 'multiplica' in line:
@@ -42,9 +42,9 @@ if __name__ == '__main__':
                     op1 = micalc.mult(op1, op2)
 
             elif 'divide' in line:
-                op1 = numeros[0] * numeros[0]
+                op1 = numeros[0]
                 try:
-                    for op2 in numeros:
+                    for op2 in numeros[1:]:
                         op1 = micalc.div(op1, op2)
 
                 except ZeroDivisionError:
