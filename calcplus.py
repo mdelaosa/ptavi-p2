@@ -6,45 +6,54 @@ Created on Mon Sep 24 19:26:55 2018
 Calculadora con clase para documento
 """
 
-import sys
+fichero = './fichero'
 
-class CalculadoraHija:
-    
-    def plus(self, op1, op2):
-        return op1 + op2
-    
-    def minus(self, op1, op2):
-        return op1 - op2
-    
-    def mult(self, op1, op2):
-        return op1 * op2
-    
-    def div(self, op1, op2):
+
+class Calculadora:
+
+    def plus(lineanumeros):
+        suma = 0
+        for i in lineanumeros:
+            suma += i
+        return suma
+
+    def minus(lineanumeros):
+        resta = 0
+        for i in lineanumeros:
+            resta -= i
+        return resta
+
+
+class CalculadoraHija(Calculadora):
+
+    def mult(lineanumeros):
+        multiplicacion = 1
+        for i in lineanumeros:
+            multiplicacion *= i
+        return multiplicacion
+
+    def div(lineanumeros):
+        division = 1
         try:
-            return op1 / op2
+            for i in lineanumeros:
+                division /= i
+            return division
         except ZeroDivisionError:
             return 'Division by zero is not allowed'
-  
+
+
 if __name__ == '__main__':
-    micalcplus = CalculadoraHija()
-   
-    try:
-        n = len(sys.argv)
-        resultadosu = 0
-        
-        """ op1 = int(sys.argv[1])
-        op2 = int(sys.argv[3])
-        Suma = micalcplus.plus(op1, op2)
-        Resta = micalcplus.minus(op1, op2)
-        Multiplicacion = micalcplus.mult(op1, op2)
-        Division = micalcplus.div(op1, op2)"""
-        
-    except ValueError:
-        sys.exit('Error: Non numerical parameters')
-        
-        for op in (1, n):
-            suma = micalcplus.plus(resultadosu, sys.argv[op])
-            resultadosu = suma
-            op = op + 1
-            
-        print(suma)
+    with open(fichero, 'r') as fichero:
+        for line in fichero:
+                linea = line.split(', ')
+                lineanumeros = list(map(int, linea[1:-1]))
+                print(lineanumeros)
+
+                if 'suma' in linea:
+                    print(linea[0], CalculadoraHija.plus(lineanumeros))
+                if 'resta' in linea:
+                    print(linea[0], CalculadoraHija.minus(lineanumeros))
+                if 'multiplica' in linea:
+                    print(linea[0], CalculadoraHija.mult(lineanumeros))
+                if 'divide' in linea:
+                    print(linea[0], CalculadoraHija.div(lineanumeros))
