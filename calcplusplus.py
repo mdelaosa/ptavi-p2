@@ -25,12 +25,17 @@ if __name__ == '__main__':
         for line in linea:
             try:
                 numeros = list(map(int, line[1:]))
+                op1 = numeros[0]
+                for op2 in numeros[1:]:
+                    try:
+                        if op2 == 0 and line[0] == "divide":
+                            op1 = 'Division by zero is not allowed'
+                            break
+                        else:
+                            op1 = operaciones[line[0]](op1, op2)
+                    except KeyError:
+                        op1 = 'Error: Wrong operator'
             except ValueError:
-                sys.exit('Error: Non numerical parameters')
-            op1 = numeros[0]
-            for op2 in numeros[1:]:
-                if op2 == 0 and line[0] == "divide":
-                    print('Division by zero is not allowed')
-                else:
-                    op1 = operaciones[line[0]](op1, op2)
+                op1 = 'Error: Non numerical parameters'
+
             print(op1)
