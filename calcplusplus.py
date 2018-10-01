@@ -29,8 +29,8 @@ if __name__ == '__main__':
                 sys.exit('Error: Non numerical parameters')
             op1 = numeros[0]
             for op2 in numeros[1:]:
-                if line[0] == "divide" and op2 != 0:
-                    op1 = operaciones[line[0]](op1, op2)
-                else:
+                if op2 == 0 and line[0] == "divide":
                     print('Division by zero is not allowed')
+                else:
+                    op1 = operaciones[line[0]](op1, op2)
             print(op1)
