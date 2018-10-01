@@ -23,33 +23,25 @@ if __name__ == '__main__':
     for line in fichero:
         linea = line.split(', ')
         numeros = list(map(int, linea[1:]))
-
-        if 'suma' in linea:
-            op1 = 0
-            for op2 in numeros:
+        op1 = numeros[0]
+        for op2 in numeros[1:]:
+            if 'suma' in line:
                 op1 = micalc.plus(op1, op2)
 
-        elif 'resta' in linea:
-            op1 = numeros[0]
-            for op2 in numeros[1:]:
+            elif 'resta' in line:
                 op1 = micalc.minus(op1, op2)
 
-        elif 'multiplica' in linea:
-            op1 = 1
-            for op2 in numeros:
+            elif 'multiplica' in line:
                 op1 = micalc.mult(op1, op2)
 
-        elif 'divide' in linea:
-            op1 = numeros[0]
-            try:
-                for op2 in numeros[1:]:
-                    op1 = micalc.div(op1, op2)
+            elif 'divide' in line:
+                    if op1 == 0 or op2 == 0:
+                        print('Division by zero is not allowed')
+                    else:
+                        op1 = micalc.div(op1, op2)
 
-            except ZeroDivisionError:
-                print('Division by zero is not allowed')
-
-        else:
-            sys.exit('Operation not valid')
+            else:
+                sys.exit('Operation not valid')
 
         print(op1)
     fichero.close()
