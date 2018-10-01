@@ -5,20 +5,11 @@ Created on Mon Sep 24 18:43:41 2018
 @author: mdelaosa
 Calculadora con clase suma, resta, mult, div.
 """
-
 import sys
+import calcoo
 
 
-class Calculadora:
-
-    def plus(self, op1, op2):
-        return op1 + op2
-
-    def minus(self, op1, op2):
-        return op1 - op2
-
-
-class CalculadoraHija(Calculadora):
+class CalculadoraHija(calcoo.Calculadora):
 
     def mult(self, op1, op2):
         return op1*op2
@@ -32,14 +23,14 @@ class CalculadoraHija(Calculadora):
 
 if __name__ == '__main__':
 
-    micalchija = CalculadoraHija()
+    micalc = CalculadoraHija()
     try:
         op1 = int(sys.argv[1])
         op2 = int(sys.argv[3])
-        Suma = micalchija.plus(op1, op2)
-        Resta = micalchija.minus(op1, op2)
-        Multiplicacion = micalchija.mult(op1, op2)
-        Division = micalchija.div(op1, op2)
+        Suma = micalc.plus(op1, op2)
+        Resta = micalc.minus(op1, op2)
+        Multiplicacion = micalc.mult(op1, op2)
+        Division = micalc.div(op1, op2)
 
     except ValueError:
         sys.exit('Error: Non numerical parameters')
