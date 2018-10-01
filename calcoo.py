@@ -5,7 +5,6 @@ Created on Mon Sep 24 16:20:17 2018
 @author: mdelaosa
 Calculadora con clase suma y resta.
 """
-
 import sys
 
 
