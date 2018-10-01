@@ -7,58 +7,49 @@ Calculadora con clase para documento
 """
 
 import sys
+import calcoohija
 fichero = './fichero'
 
 
-class Calculadora:
-
-    def plus(lineanumeros):
-        suma = 0
-        for i in lineanumeros:
-            suma += i
-        return suma
-
-    def minus(lineanumeros):
-        resta = 0
-        for i in lineanumeros:
-            resta -= i
-        return resta
-
-
-class CalculadoraHija(Calculadora):
-
-    def mult(lineanumeros):
-        multiplicacion = 1
-        for i in lineanumeros:
-            multiplicacion *= i
-        return multiplicacion
-
-    def div(lineanumeros):
-        division = 1
-        try:
-            for i in lineanumeros:
-                division /= i
-            return division
-        except ZeroDivisionError:
-            return 'Division by zero is not allowed'
-
-
 if __name__ == '__main__':
-    with open(fichero, 'r') as fichero:
-        for line in fichero:
-                linea = line.split(', ')
-                lineanumeros = list(map(int, linea[1:-1]))
 
-                if 'suma' in linea:
-                    resultado = CalculadoraHija.plus(lineanumeros)
-                elif 'resta' in linea:
-                    resultado = CalculadoraHija.minus(lineanumeros)
-                elif 'multiplica' in linea:
-                    resultado = CalculadoraHija.mult(lineanumeros)
-                elif 'divide' in linea:
-                    resultado = CalculadoraHija.div(lineanumeros)
-                else:
-                    sys.exit('Operation not valid')
+    fichero = open('fichero', encoding='utf-8', mode='r')
+    try:
+        micalc = calcoohija.CalculadoraHija()
 
-                print(linea[0], resultado)
+    except ValueError:
+        sys.exit('Error: Non numerical parameters')
 
+    for line in fichero:
+        linea = line.split(', ')
+        numeros = list(map(int, linea[1:]))
+
+        if 'suma' in linea:
+            op1 = 0
+            for op2 in numeros:
+                op1 = micalc.plus(op1, op2)
+
+        elif 'resta' in linea:
+            op1 = numeros[0]
+            for op2 in numeros[1:]:
+                op1 = micalc.minus(op1, op2)
+
+        elif 'multiplica' in linea:
+            op1 = 1
+            for op2 in numeros:
+                op1 = micalc.mult(op1, op2)
+
+        elif 'divide' in linea:
+            op1 = numeros[0]
+            try:
+                for op2 in numeros[1:]:
+                    op1 = micalc.div(op1, op2)
+
+            except ZeroDivisionError:
+                print('Division by zero is not allowed')
+
+        else:
+            sys.exit('Operation not valid')
+
+        print(op1)
+    fichero.close()
