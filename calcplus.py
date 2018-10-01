@@ -6,6 +6,7 @@ Created on Mon Sep 24 19:26:55 2018
 Calculadora con clase para documento
 """
 
+import sys
 fichero = './fichero'
 
 
@@ -47,13 +48,17 @@ if __name__ == '__main__':
         for line in fichero:
                 linea = line.split(', ')
                 lineanumeros = list(map(int, linea[1:-1]))
-                print(lineanumeros)
 
                 if 'suma' in linea:
-                    print(linea[0], CalculadoraHija.plus(lineanumeros))
-                if 'resta' in linea:
-                    print(linea[0], CalculadoraHija.minus(lineanumeros))
-                if 'multiplica' in linea:
-                    print(linea[0], CalculadoraHija.mult(lineanumeros))
-                if 'divide' in linea:
-                    print(linea[0], CalculadoraHija.div(lineanumeros))
+                    resultado = CalculadoraHija.plus(lineanumeros)
+                elif 'resta' in linea:
+                    resultado = CalculadoraHija.minus(lineanumeros)
+                elif 'multiplica' in linea:
+                    resultado = CalculadoraHija.mult(lineanumeros)
+                elif 'divide' in linea:
+                    resultado = CalculadoraHija.div(lineanumeros)
+                else:
+                    sys.exit('Operation not valid')
+
+                print(linea[0], resultado)
+
