@@ -9,40 +9,28 @@ Created on Mon Oct  1 11:20:29 2018
 import sys
 import csv
 import calcoohija
-fichero = './fichero'
 
 
 if __name__ == '__main__':
 
-    with open('fichero', 'r') as fichero:
+    with open(sys.argv[1], 'r') as fichero:
         linea = list(csv.reader(fichero, delimiter=','))
+        micalc = calcoohija.CalculadoraHija()
 
-        try:
-            micalc = calcoohija.CalculadoraHija()
-
-        except ValueError:
-            sys.exit('Error: Non numerical parameters')
+        operaciones = {"suma": micalc.plus,
+                       "resta": micalc.minus,
+                       "multiplica": micalc.mult,
+                       "divide": micalc.div}
 
         for line in linea:
-            numeros = list(map(int, line[1:]))
+            try:
+                numeros = list(map(int, line[1:]))
+            except ValueError:
+                sys.exit('Error: Non numerical parameters')
             op1 = numeros[0]
             for op2 in numeros[1:]:
-                if 'suma' in line:
-                    op1 = micalc.plus(op1, op2)
-
-                elif 'resta' in line:
-                    op1 = micalc.minus(op1, op2)
-
-                elif 'multiplica' in line:
-                    op1 = micalc.mult(op1, op2)
-
-                elif 'divide' in line:
-                    if op1 == 0 or op2 == 0:
-                        print('Division by zero is not allowed')
-                    else:
-                        op1 = micalc.div(op1, op2)
-
+                if line[0] == "divide" and op2 != 0:
+                    op1 = operaciones[line[0]](op1, op2)
                 else:
-                    sys.exit('Operation not valid')
-
+                    print('Division by zero is not allowed')
             print(op1)
